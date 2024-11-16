@@ -77,40 +77,53 @@ export const deleteSingleUser = async (req: Request, res: Response) => {
 // Add a friend to a user's friend list
 export const addFriend = async (req: Request, res: Response) => {
   try {
-    const user = await User.findById(req.params.userId);
     const friend = await User.findById(req.params.friendId);
+    if (friend) {
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $push: { friends: friend._id } },
+        { new: true }
+      );
 
-    if (!user || !friend) {
-      return res.status(404).json({ message: 'User or friend not found' });
+      if (!user) {
+        return res.status(404).json({
+          message: 'Friend Added, but found no user with that ID',
+        });
+      }
+      res.json('Added a new friend 🎉');
     }
-
-    // Add friendId to user's friends array
-    else{
-    user.friends.push(friend._id);
-    await user.save();
-
-    res.status(200).json(user);
-    }
+    return;
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
+
+  return;
 };
 
 // Remove a friend from a user's friend list
 export const removeFriend = async (req: Request, res: Response) => {
   try {
-    const user = await User.findById(req.params.userId);
+    const friend = await User.findById(req.params.friendId);
+    if (friend) {
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $pull: { friends: friend._id } },
+        { new: true }
+      );
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      if (!user) {
+        return res.status(404).json({
+          message: 'Friend removed, but found no user with that ID',
+        });
+      }
+      res.json('Removed friend from your list');
     }
-
-    // Remove friendId from user's friends array
-    user.friends.pull(req.params.friendId);
-    await user.save();
-
-    res.status(200).json(user);
+    return;
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
+
+  return;
 };

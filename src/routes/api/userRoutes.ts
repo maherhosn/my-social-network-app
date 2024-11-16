@@ -3,12 +3,12 @@ const router = Router();
 import { getUsers, getSingleUser, createUser, updateSingleUser, deleteSingleUser, addFriend, removeFriend } from '../../controllers/userController.js';
 
 // /api/users
-router.route('/')
+router.route('/api/users')
     .get(getUsers)
     .post(createUser);
 
 // /api/users/:userId
-router.route('/:userId')
+router.route('/api/users/:userId')
     .get(getSingleUser)
     .put(updateSingleUser)
     .delete(deleteSingleUser);
