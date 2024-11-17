@@ -20,17 +20,17 @@ export const createThought = async (req: Request, res: Response) => {
     const thought = await Thought.create(req.body);
     const user = await User.findOneAndUpdate(
       { _id: req.body.userId },
-      { $addToSet: { thoughts: thought._id } },
+      { $push: { thoughts: thought._id } },
       { new: true }
     );
 
     if (!user) {
       return res.status(404).json({
-        message: 'Video created, but found no user with that ID',
+        message: 'Thought created, but found no user with that ID',
       });
     }
 
-    res.json('Created the thought 🎉');
+    res.json('🎉 Created the thought for the user: ' + req.body.userName);
     return;
   } catch (err) {
     console.log(err);

@@ -46,8 +46,8 @@ export const updateSingleUser = async (req: Request, res: Response) => {
   try {
     // Find the first document that matches the specified route parameter (name)
     const updatedUser = await User.findOneAndUpdate(
-      { name: req.params.name }, // Match the genre by name from the route parameter
-      { name: req.body.name }, // Update the name with the value from the request body
+      { _id: req.params.userId }, // Match the genre by id from the route parameter
+      { username: req.body.username }, // Update the username with the value from the request body
       { new: true } // Return the updated document
     );
 
@@ -69,7 +69,7 @@ export const deleteSingleUser = async (req: Request, res: Response) => {
     if (!deletedUser) {
       res.status(404).json({ message: 'No user with that ID' });
     } else {
-      res.json(deletedUser);
+      res.json({message: "User and associated thoughts of the below has been deleted" +deletedUser});
     }
   } catch (err) {
     res.status(500).json(err);
