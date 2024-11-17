@@ -90,7 +90,7 @@ export const deleteThought = async (req: Request, res: Response) => {
     }
 
     res.json({ message: 'Thought successfully deleted!' });
-    
+
   } catch (err) {
     res.status(500).json(err);
   }
@@ -121,16 +121,22 @@ export const getThoughtReactions = async (req: Request, res: Response) => {
 
 export const addThoughtReaction = async (req: Request, res: Response) => {
   try {
+    // Validate that the required fields are present in the request body
+    const { responseBody, username } = req.body;
+    if (!responseBody || !username) {
+      return res.status(400).json({ message: 'Reaction body and username are required!' });
+    }
+
     const thought = await Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $addToSet: { responses: req.body } },
+      { $addToSet: { reactions: { responseBody, username } } }, // Ensure you're adding a structured reaction object
       { runValidators: true, new: true }
     );
 
     if (!thought) {
       return res.status(404).json({ message: 'No thought with this id!' });
     }
-
+    
     res.json(thought);
     return;
   } catch (err) {
