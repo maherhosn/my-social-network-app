@@ -136,7 +136,7 @@ export const addThoughtReaction = async (req: Request, res: Response) => {
     if (!thought) {
       return res.status(404).json({ message: 'No thought with this id!' });
     }
-    
+
     res.json(thought);
     return;
   } catch (err) {
@@ -146,13 +146,13 @@ export const addThoughtReaction = async (req: Request, res: Response) => {
 }
 
 //================================================================
-//Functions called in the "/api/thoughts/:thoughtId" directory
+//Functions called in the "/api/thoughts/:thoughtId/reactions/:reactionId" directory
 // Remove thought response
 export const removeThoughtResponse = async (req: Request, res: Response) => {
   try {
     const thought = await Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: { responseId: req.params.responseId } } },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
 
@@ -160,7 +160,7 @@ export const removeThoughtResponse = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'No thought with this id!' });
     }
 
-    res.json(thought);
+    res.json({message: 'The Reaction was removed.'});
     return;
   } catch (err) {
     res.status(500).json(err);

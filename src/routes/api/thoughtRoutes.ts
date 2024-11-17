@@ -19,8 +19,8 @@ router.route('/:thoughtId/reactions')
   .get(getThoughtReactions)
   .post(addThoughtReaction);
 
-// /api/thoughts/:thoughtId/reactions/:reactionID
-router.route('/:thoughtId/reactions/:reactionID')
+// /api/thoughts/:thoughtId/reactions/:reactionId
+router.route('/:thoughtId/reactions/:reactionId')
   .delete(removeThoughtResponse);
 
 export default router;
