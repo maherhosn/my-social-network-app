@@ -29,7 +29,7 @@ connection.once('open', async () => {
     assureUniquness.add(user.username);
   })
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 10; i++) {
     let username, email;
 
     // Generate unique username and email

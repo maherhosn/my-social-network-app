@@ -69,7 +69,7 @@ export const deleteSingleUser = async (req: Request, res: Response) => {
     if (!deletedUser) {
       res.status(404).json({ message: 'No user with that ID' });
     } else {
-      res.json({message: "User and associated thoughts of the below has been deleted" +deletedUser});
+      res.json({message: "User and associated thoughts has been deleted"});
     }
   } catch (err) {
     res.status(500).json(err);
