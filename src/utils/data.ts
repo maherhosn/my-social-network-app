@@ -24,7 +24,6 @@ const names = [
 'Chloe',
 'Alexander',
 'Scarlett',
-  ``,
 ];
 
 const descriptionsThoughts = [
@@ -58,7 +57,30 @@ const getRandomArrItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.leng
 
 // Gets a random full name
 const getRandomName = () =>
-  `${getRandomArrItem(names)} ${getRandomArrItem(names)}`;
+  `${getRandomArrItem(names)}`;
+
+const getRandomFriends = (int: number) => {
+  let results = [];
+  const uniqueUsernames = new Set();
+  const uniqueEmails = new Set();
+
+  while (results.length < int) {
+    const randomName = `${getRandomArrItem(names)}`;
+    const randEmail = `${randomName}@${randomName}.com`;
+
+    // Check for uniqueness
+    if (!uniqueUsernames.has(randomName) && !uniqueEmails.has(randEmail)) {
+      uniqueUsernames.add(randomName);
+      uniqueEmails.add(randEmail);
+      
+      results.push({
+        username: randomName,
+        email: randEmail,
+      });
+    }
+  }
+  return results;
+};
 
 // Function to generate random thoughts that we can add to the database. Includes video responses.
 const getRandomThoughts = (int: number) => {
@@ -75,9 +97,6 @@ const getRandomThoughts = (int: number) => {
 
 // Create the responses that will be added to each thought
 const getThoughtReactions = (int: number) => {
-  if (int === 1) {
-    return getRandomArrItem(possibleReactions);
-  }
   let results = [];
   for (let i = 0; i < int; i++) {
     results.push({
@@ -89,4 +108,4 @@ const getThoughtReactions = (int: number) => {
 };
 
 // Export the functions for use in seed.js
-export { getRandomName, getRandomThoughts, getThoughtReactions };
+export { getRandomName, getRandomThoughts, getThoughtReactions, getRandomFriends };

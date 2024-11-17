@@ -6,8 +6,10 @@ import { Request, Response } from 'express';
 export const getUsers = async (_req: Request, res: Response) => {
   try {
     const users = await User.find();
+    
     res.json(users);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 }
@@ -18,6 +20,7 @@ export const createUser = async (req: Request, res: Response) => {
     const dbUserData = await User.create(req.body);
     res.json(dbUserData);
   } catch (err) {
+
     res.status(500).json(err);
   }
 }

@@ -98,7 +98,7 @@ export const deleteThought = async (req: Request, res: Response) => {
     if (!user) {
       return res
         .status(404)
-        .json({ message: 'Video created but no user with this id!' });
+        .json({ message: 'Thought created but no user with this id!' });
     }
 
     res.json({ message: 'Thought successfully deleted!' });
@@ -114,6 +114,22 @@ export const deleteThought = async (req: Request, res: Response) => {
 //================================================================
 //Functions called in the "/api/thoughts/:thoughtId" directory
 // Add a thought reactions
+export const getThoughtReactions = async (req: Request, res: Response) => {
+  try {
+    const thought = await Thought.findById(req.params.thoughtId).populate('reactions');
+
+    if (!thought) {
+      return res.status(404).json({ message: 'No thought found with this id!' });
+    }
+
+    res.json(thought.reactions);
+    return;
+  } catch (err) {
+    res.status(500).json(err);
+    return;
+  }
+}
+
 export const addThoughtReaction = async (req: Request, res: Response) => {
   try {
     const thought = await Thought.findOneAndUpdate(
