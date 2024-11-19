@@ -27,7 +27,7 @@ https://opensource.org/licenses/MIT
 No Contributions can be made to this code!
 
 ## Tests:
-In the following video you can see how you can setup Insomnia to test the app:<br>[![Watch the Video](https://github.com/maherhosn/my-social-network-app/blob/main/pictures/Insomnia%20Picture.png)](https://watch.screencastify.com/v/fkK67qQhaZu56RbMi5mv)
+In the following video you can see how you can setup Insomnia to test the app:<br>[![Watch the Video](https://drive.google.com/file/d/1uJ9ov_6l-KhwH3dWjKbhJ50MTmkyLh-p/view)
 
 ## Questions:
 If you have any question please contact: <br>
