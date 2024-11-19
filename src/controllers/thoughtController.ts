@@ -30,7 +30,7 @@ export const createThought = async (req: Request, res: Response) => {
       });
     }
 
-    res.json('🎉 Created the thought for the user: ' + req.body.userName);
+    res.json(thought);
     return;
   } catch (err) {
     console.log(err);

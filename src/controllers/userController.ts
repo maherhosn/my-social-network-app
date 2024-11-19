@@ -93,7 +93,7 @@ export const addFriend = async (req: Request, res: Response) => {
           message: 'Friend Added, but found no user with that ID',
         });
       }
-      res.json('Added a new friend 🎉');
+      res.json(user);
     }
     return;
   } catch (err) {
@@ -120,7 +120,7 @@ export const removeFriend = async (req: Request, res: Response) => {
           message: 'Friend removed, but found no user with that ID',
         });
       }
-      res.json('Removed friend from your list');
+      res.json(user);
     }
     return;
   } catch (err) {
